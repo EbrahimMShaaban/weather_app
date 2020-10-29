@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/core/permissions.dart';
 import 'package:weather_app/views/home/controller.dart';
 import 'package:weather_app/views/home/model.dart';
+import 'package:weather_app/views/search/view.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
-  void _getData() async {
+  Future<void> _getData() async {
     await _permission.requestLocationPermission();
     _homeModel = await _homeController.getData();
     setState(() {
@@ -29,23 +30,33 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Container(
-        width: double.infinity,
-            child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text('${_homeModel.cityName}'),
-                  Text('${_homeModel.description}'),
-                  Text('${_homeModel.temp}'),
-                  Text('${_homeModel.humi}'),
-                  Text('${_homeModel.windSpeed}'),
-                ],
-              ),
-          ),
+    return RefreshIndicator(
+      onRefresh: _getData,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> SearchView())),
+            )
+          ],
+        ),
+        body: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Container(
+          width: double.infinity,
+              child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('${_homeModel.cityName}'),
+                    Text('${_homeModel.description}'),
+                    Text('${_homeModel.temp}'),
+                    Text('${_homeModel.humi}'),
+                    Text('${_homeModel.windSpeed}'),
+                  ],
+                ),
+            ),
+      ),
     );
   }
 }

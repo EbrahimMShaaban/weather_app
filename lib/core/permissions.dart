@@ -8,6 +8,7 @@ class LocationPermission{
       return;
     }else{
       await Permission.location.request();
+      await requestLocationPermission();
     }
   }
 
