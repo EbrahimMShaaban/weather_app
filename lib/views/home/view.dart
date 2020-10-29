@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
       _isLoading = false;
     });
   }
-
+  Widget sizedBox = SizedBox(height: 100,);
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -48,10 +48,19 @@ class _HomeViewState extends State<HomeView> {
               child: ListView(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    sizedBox,
                     Text('${_homeModel.cityName}'),
+                    sizedBox,
+
                     Text('${_homeModel.description}'),
+                    sizedBox,
+
                     Text('${_homeModel.temp}'),
+                    sizedBox,
+
                     Text('${_homeModel.humi}'),
+                    sizedBox,
+
                     Text('${_homeModel.windSpeed}'),
                   ],
                 ),
