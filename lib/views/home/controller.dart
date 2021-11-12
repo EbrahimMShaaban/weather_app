@@ -7,13 +7,13 @@ class HomeController {
 
   CurrentLocation _currentLocation = CurrentLocation();
 
-  Future<HomeModel> getData() async {
+  Future<WeatherModel> getData() async {
     Map<String,double> _position = await _currentLocation.getUserLocation();
     final String url =
         'http://api.openweathermap.org/data/2.5/weather?lat=${_position['lat']}&lon=${_position['lng']}&appid=be2acbcfe99b5fe0e4e59c3b35c3dd23';
     final response = await http.get(url);
     final decodedData = json.decode(response.body);
-    HomeModel _homeModel = HomeModel(
+    WeatherModel _homeModel = WeatherModel(
       description: decodedData['weather'][0]['description'],
       temp: decodedData['main']['temp'],
       humi: decodedData['main']['humidity'],

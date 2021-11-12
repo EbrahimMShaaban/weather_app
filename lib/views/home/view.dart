@@ -12,7 +12,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   HomeController _homeController = HomeController();
   LocationPermission _permission = LocationPermission();
-  HomeModel _homeModel;
+  WeatherModel _homeModel;
   bool _isLoading = true;
   @override
   void initState() {
